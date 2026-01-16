@@ -18,3 +18,43 @@ crash.*.log
 
 # Ignore override files as they are usually used to override resources locally and so
 # are not
+
+# Local .terraform directories
+.terraform/
+
+# .tfstate files and backups
+*.tfstate
+*.tfstate.*
+
+# Crash log files
+crash.log
+crash.*.log
+
+# Exclude all .tfvars files, which might contain sensitive data
+# (e.g. password, private keys, etc.)
+# If you want to track a specific tfvars file, add a ! line for it
+# example: !terraform.tfvars
+*.tfvars
+*.tfvars.json
+
+# Ignore CLI configuration files
+.terraformrc
+terraform.rc
+
+# Optional: ignore graph output files
+# *.dot
+
+# Optional: ignore plan files saved before destroying Terraform configuration
+# example: *.tfplan
+# Junk installs / build outputs inside repo
+aws/dist/
+**/aws/dist/
+.venv/
+venv/
+__pycache__/
+*.egg-info/
+
+# AWS CLI junk
+aws/
+awscliv2.zip
+bin/trufflehog

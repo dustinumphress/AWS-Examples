@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+set -e
+
+# Check for bucket name
+if [ -z "$1" ]; then
+  echo "There needs to be a bucket name eg. ./bucket my-bucket-name"
+  exit 1
+fi
+
+# Check for filename prefix
+if [ -z "$2" ]; then
+  echo "There needs to be a filename prefix eg. ./bucket my-bucket-name my-filename-prefix"
+  exit 1
+fi
+
+BUCKET_NAME="$1"
+FILENAME_PREFIX="$2"
+
+# Optional safety: only allow letters, numbers, underscore, dash
+if [[ ! "$FILENAME_PREFIX" =~ ^[A-Za-z0-9_-]+$ ]]; then
+  echo "Filename prefix must be only letters/numbers/_/- (got: $FILENAME_PREFIX)"
+  exit 1
+fi
+
+# Make globs that match nothing expand to nothing
+shopt -s nullglob
+
+echo "== cleaning up old random directories"
+rm -rf "/tmp/${FILENAME_PREFIX}_"*
+
+echo "== creating objects"
+
+FILE_COUNT=$(( RANDOM % 6 + 5 ))
+DIR_ROOT="/tmp"
+DIR_NAME="$DIR_ROOT/${FILENAME_PREFIX}_$(date +%s)"
+mkdir -p "$DIR_NAME"
+
+for i in $(seq 1 "$FILE_COUNT"); do
+  FILENAME="$DIR_NAME/file_${i}.txt"
+  BYTES=$(( RANDOM % 4096 + 1024 ))
+  head -c "$BYTES" /dev/urandom > "$FILENAME"
+done
+
+tree "$DIR_NAME"
+
+aws s3 sync "$DIR_NAME" "s3://$BUCKET_NAME"

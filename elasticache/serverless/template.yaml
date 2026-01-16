@@ -6,16 +6,16 @@ Parameters:
     Default: t3.micro
   VpcId:
     Type: String
-    Default: vpc-08f0ec02f7471b018
+    Default: vpc-07685bf3df80ce212
   ImageId:
     Type: String
-    Default: ami-0c777892a9bc2e481
+    Default: ami-0ecb62995f68bb549
   SubnetId:
     Type: String
-    Default: subnet-0e0fd31733061237d
+    Default: subnet-0c8efe96f06936799
   SecurityGroupId:
     Type: String
-    Default: sg-098fa834d80e2fc3c
+    Default: sg-07d9377098b03bf31
 Resources:
   SSMRole:
     Type: AWS::IAM::Role

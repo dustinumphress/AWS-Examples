@@ -4,7 +4,7 @@ set -e
 root_path=$(realpath .)
 item_path="file://${root_path}/item.json"
 
-DDB=db-table-SimpleTable-KIOIT44C54TP
+DDB=db-table-SimpleTable-UZE2QABAL78I
 
 aws dynamodb put-item \
 --table-name $DDB \
